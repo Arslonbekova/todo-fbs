@@ -43,8 +43,6 @@ function setdata() {
 
 }
 
-
-
 // function getdata() {
 //     get(ref(db,"user/" + d)).then((el)=>{
 //         if (el.exists()) {
@@ -183,7 +181,7 @@ function show(data) {
 
                 console.log(data[i]);
 
-                update(ref(db,'user/'+ d),{
+                update(ref(db,nom+'user/'+ d),{
                     // id:d,
                     // username:data[i].username,
                     completed:data[i].completed
@@ -216,7 +214,7 @@ function show(data) {
 
                     h1.innerText=username.value;
                     
-                    update(ref(db,'user/'+ d),{
+                    update(ref(db,nom+'user/'+ d),{
                         id:d,
                         completed:data[i].completed,
                         username:username.value,
@@ -236,7 +234,7 @@ function show(data) {
 
                 let d=data[i].id;
                 line.innerHTML="";
-                remove(ref(db,'user/'+ d));
+                remove(ref(db,nom+'user/'+ d));
                 
             });
 
