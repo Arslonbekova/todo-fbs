@@ -6,7 +6,8 @@ import {
     ref,
     get,
     update,
-    remove
+    remove,
+
  } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
 
 const firebaseConfig = {
@@ -25,10 +26,13 @@ const db=getDatabase();
 
 let d=0;
 let container=document.querySelector("#co");
+
 let username=document.querySelector("#username");
 
+let nom=prompt("imingizni kiriting");
+
 function setdata() {
-    set(ref(db,'user/'+ d),{
+    set(ref(db,nom+'user/'+ d),{
     id:d,
     username:username.value,
     completed:check1.checked
@@ -38,6 +42,7 @@ function setdata() {
     .catch((error)=>alert(error));
 
 }
+
 
 
 // function getdata() {
@@ -94,14 +99,16 @@ function setdata() {
 //     }
 // });
 
-get(ref(db,"user/")).then((el)=>{
+get(ref(db,nom+"user/")).then((el)=>{
     if (el.exists()) {
         let s=el.val();
         let data=[];
        for (let i = 0; i < s.length; i++) {
         data.push(s[i]);
        };
+       
        d=data.length-1;
+
        show(data);
     }
 });
@@ -122,7 +129,7 @@ send.addEventListener("click",(event)=>{
 });
 
 ok.style.display="none";
-let s222="";
+
 username.addEventListener("keyup" , function (event) {
     if(event.key=="Enter"){
         event.preventDefault();
@@ -131,12 +138,16 @@ username.addEventListener("keyup" , function (event) {
             id:d,
             completed:check1.checked,
             username:username.value}];
-            
+
         show(obj);
         username.value="";
+        console.log("hgfhgfhgfgh");
+
     }
-    });
+});
+
 function show(data) {
+
 
     console.log(data.length);
 
@@ -200,8 +211,11 @@ function show(data) {
                 ok.addEventListener("click",(event)=>{
 
                     let d=data[i].id;
-                    h1.innerText=username.value;
+                    
+                    // event.preventDefault();
 
+                    h1.innerText=username.value;
+                    
                     update(ref(db,'user/'+ d),{
                         id:d,
                         completed:data[i].completed,
@@ -209,6 +223,7 @@ function show(data) {
                         }).then(()=>{
                         })
                         .catch((error)=>alert(error));
+
                     console.log(d);
                     send.style.display="";
                     ok.style.display="none";
@@ -224,20 +239,6 @@ function show(data) {
                 remove(ref(db,'user/'+ d));
                 
             });
-            // ok.addEventListener("click",()=>{
-            
-            //     update(ref(db,'user/'+ s222.id),{
-            //         id:s222.id,
-            //         completed:s222.id.completed,
-            //         username:username.value,
-            //         }).then(()=>{
-            //         })
-            //         .catch((error)=>alert(error));
-            //     console.log(s222.id);
-            //     send.style.display="";
-            //     ok.style.display="none";
-                
-            // });
 
             del.innerText="del";
             edit.innerText="edit";
@@ -251,26 +252,13 @@ function show(data) {
         }
     }
     d++;
-    // console.log(d);
 }
 
 
 
 
 
-// clod.addEventListener("click",()=>{
-//     event.preventDefault();
-//     get(ref(db,"user/" + d)).then((el)=>{
-//         if (el.exists()) {
 
-//             // phone.value=el.val().phone;
-//             username.value=el.val().username;
-//             d++;
-
-//         }
-//     });
-
-// })
 
 // function writeUserData(userId, name, email, imageUrl) {
 //   const db = getDatabase();
