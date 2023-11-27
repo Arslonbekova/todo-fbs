@@ -29,7 +29,7 @@ let container=document.querySelector("#co");
 
 let username=document.querySelector("#username");
 
-let nom=prompt("imingizni kiriting");
+let nom=prompt("ismingizni kiriting");
 
 function setdata() {
     set(ref(db,nom+'user/'+ d),{
