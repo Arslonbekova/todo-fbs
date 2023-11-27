@@ -123,6 +123,19 @@ send.addEventListener("click",(event)=>{
 
 ok.style.display="none";
 let s222="";
+username.addEventListener("keyup" , function (event) {
+    if(event.key=="Enter"){
+        event.preventDefault();
+        setdata();
+        let obj=[{
+            id:d,
+            completed:check1.checked,
+            username:username.value}];
+            
+        show(obj);
+        username.value="";
+    }
+    });
 function show(data) {
 
     console.log(data.length);
